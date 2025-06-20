@@ -1,0 +1,129 @@
+# Project: Cable Carousel UI
+# Author: Amir Mobasheraghdam
+
+import customtkinter as ctk
+import serial
+import time
+from PIL import Image, ImageTk
+import os
+
+ctk.set_appearance_mode("light")
+ctk.set_default_color_theme("blue")
+
+# --- Cable database ---
+cable_db = [
+  {"Trommel": 10, "Color": "Green", "Type": "CF77.UL.4", "Serial": "AB904401", "Length": 56.8},
+  {"Trommel": 9,  "Color": "White", "Type": "CF98.4.99", "Serial": "AB904402", "Length": 39.4},
+  {"Trommel": 8,  "Color": "Silver", "Type": "CF240.4.5", "Serial": "AB904407", "Length": 88.3},
+  {"Trommel": 7,  "Color": "Black", "Type": "CF6.12.43", "Serial": "AB904404", "Length": 61.0},
+  {"Trommel": 6,  "Color": "Pink", "Type": "CF9.3.01", "Serial": "AB904405", "Length": 72.6},
+  {"Trommel": 5,  "Color": "Orange", "Type": "CF10.32", "Serial": "AB904406", "Length": 35.5},
+  {"Trommel": 4,  "Color": "Gray", "Type": "CF130.2.4", "Serial": "AB904403", "Length": 47.9},
+  {"Trommel": 3,  "Color": "Brown", "Type": "CF113.1.3", "Serial": "AB904408", "Length": 41.7},
+  {"Trommel": 2,  "Color": "Red", "Type": "CF211.11", "Serial": "AB904409", "Length": 68.0},
+  {"Trommel": 1,  "Color": "Yellow", "Type": "CF29.0", "Serial": "AB904410", "Length": 53.2}
+]
+
+MAX_LENGTH = max([k["Length"] for k in cable_db])
+
+try:
+    arduino = serial.Serial('COM9', 9600, timeout=1)
+    time.sleep(2)
+except:
+    arduino = None
+
+root = ctk.CTk()
+root.title("Cable Carousel - Amir Mobasheraghdam")
+root.geometry("1200x800")
+root.resizable(True, True)
+
+title_label = ctk.CTkLabel(root, text="Cable Carousel", font=("Arial Black", 28))
+title_label.pack(pady=10)
+
+search_frame = ctk.CTkFrame(root)
+search_frame.pack(pady=5)
+search_entry = ctk.CTkEntry(search_frame, placeholder_text="Filter by cable type or color", width=400)
+search_entry.pack()
+
+grid_frame = ctk.CTkScrollableFrame(root, width=900, height=360)
+grid_frame.pack(pady=10)
+
+info_frame = ctk.CTkFrame(root)
+info_frame.pack(pady=15, fill="x", padx=20)
+
+info_text = ctk.CTkLabel(info_frame, text="Select a cable drum", font=("Arial", 16))
+info_text.pack(pady=10)
+
+label_sn = ctk.CTkLabel(info_frame, text="Serial: -")
+label_sn.pack()
+label_type = ctk.CTkLabel(info_frame, text="Type: -")
+label_type.pack()
+label_color = ctk.CTkLabel(info_frame, text="Color: -")
+label_color.pack()
+color_label = ctk.CTkLabel(info_frame, text=" ", width=20, height=20, fg_color="gray")
+color_label.pack()
+label_length = ctk.CTkLabel(info_frame, text="Length: -")
+label_length.pack()
+
+progress = ctk.CTkProgressBar(info_frame, width=300)
+progress.pack(pady=10)
+progress.set(0)
+
+image_label = ctk.CTkLabel(root, text="")
+image_label.pack(pady=5)
+
+exit_btn = ctk.CTkButton(root, text="Exit", command=root.destroy)
+exit_btn.pack(pady=10)
+
+def load_image(color=None):
+    try:
+        filename = f"kabelkarussell_recolored/{color}.png" if color else "kabelkarussell_recolored/Green.png"
+        path = os.path.join(os.path.dirname(__file__), filename)
+        image = Image.open(path).resize((100, 100))
+        return ImageTk.PhotoImage(image)
+    except:
+        return None
+
+def color_hex(name):
+    colors = {
+        "Yellow": "#FFFF00", "Red": "#FF0000", "Brown": "#8B4513", "Silver": "#C0C0C0",
+        "Orange": "#FFA500", "Pink": "#FFC0CB", "Black": "#000000", "Gray": "#808080",
+        "White": "#FFFFFF", "Green": "#008000"
+    }
+    return colors.get(name, "#AAAAAA")
+
+def send_drum(index):
+    data = cable_db[index]
+    global img_tk
+    img_tk = load_image(data['Color'])
+    if arduino:
+        arduino.write(f"{data['Trommel']}\n".encode())
+        info_text.configure(text=f"Drum {data['Trommel']} sent")
+    else:
+        info_text.configure(text="⚠️ Arduino not connected")
+
+    label_sn.configure(text=f"Serial: {data['Serial']}")
+    label_type.configure(text=f"Type: {data['Type']}")
+    label_color.configure(text=f"Color: {data['Color']}")
+    color_label.configure(fg_color=color_hex(data['Color']))
+    label_length.configure(text=f"Length: {data['Length']} m")
+    progress.set(data['Length'] / MAX_LENGTH)
+    image_label.configure(image=img_tk)
+
+def update_filter(*args):
+    query = search_entry.get().lower()
+    for widget in grid_frame.winfo_children():
+        widget.destroy()
+    for i, cable in enumerate(cable_db):
+        if query in cable['Type'].lower() or query in cable['Color'].lower():
+            row = i // 5
+            col = i % 5
+            btn = ctk.CTkButton(grid_frame, text=f"Drum {cable['Trommel']}", width=120, height=100,
+                                image=load_image(cable['Color']), compound="top", command=lambda i=i: send_drum(i))
+            btn.grid(row=row, column=col, padx=10, pady=10)
+
+img_tk = load_image("Green")
+search_entry.bind("<KeyRelease>", update_filter)
+update_filter()
+
+root.mainloop()
