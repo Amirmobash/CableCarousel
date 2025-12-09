@@ -48,13 +48,13 @@ void loop() {
         case 10: typ = "CF77.UL.4"; sn = "AB904401"; break;
         case 9:  typ = "CF98.4.99"; sn = "AB904402"; break;
         case 8:  typ = "CF130.2.4"; sn = "AB904403"; break;
-        case 7:  typ = "CF6.12.43"; sn = "AB904404"; break;
+        case 7:  typ = "CF6.12.43"; sn = "AB94404"; break;
         case 6:  typ = "CF9.3.01"; sn = "AB904405"; break;
         case 5:  typ = "CF10.32"; sn = "AB904406"; break;
-        case 4:  typ = "CF240.4.5"; sn = "AB904407"; break;
+        case 4:  typ = "CF240.4.5"; sn = "AB94407"; break;
         case 3:  typ = "CF113.1.3"; sn = "AB904408"; break;
         case 2:  typ = "CF211.11"; sn = "AB904409"; break;
-        case 1:  typ = "CF29.0"; sn = "AB904410"; break;
+        case 1:  typ = "CF29.0"; sn = "AB90410"; break;
         default: typ = "-"; sn = "-"; break;
       }
 
