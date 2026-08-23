@@ -1,4 +1,4 @@
-# CableCarousel 🎡
+# CableCarousel
 
 **Author:** Amir Mobasheraghdam
 **University:** University of Isfahan
@@ -54,7 +54,7 @@ Das Projekt eignet sich für Ausbildungszwecke, Laborprototypen, Lagerautomatisi
 
 ---
 
-## 🧰 Technologies Used
+##  Technologies Used
 
 | Technology    | Purpose                             |
 | ------------- | ----------------------------------- |
@@ -68,7 +68,7 @@ Das Projekt eignet sich für Ausbildungszwecke, Laborprototypen, Lagerautomatisi
 
 ---
 
-## 📦 Requirements
+##  Requirements
 
 Install the required Python packages:
 
@@ -166,7 +166,7 @@ python main.py --baudrate 9600
 
 ---
 
-## 🖥️ Application Interface
+## Application Interface
 
 The interface contains:
 
@@ -181,7 +181,7 @@ The interface contains:
 
 ---
 
-## 🔎 Search Functionality
+##  Search Functionality
 
 The search bar can filter cable reels by:
 
@@ -205,7 +205,7 @@ AB904401
 
 ---
 
-## 🧵 Cable Database Example
+## Cable Database Example
 
 The internal cable database stores each cable reel with structured metadata:
 
@@ -224,7 +224,7 @@ Cable(1, "Grün", "CF77.UL", "AB904401", 56.8)
 
 ---
 
-## 🛠️ Hardware Setup
+##  Hardware Setup
 
 ### Required Hardware
 
@@ -265,7 +265,7 @@ The exact wiring can be changed in the Arduino sketch.
 
 ---
 
-## 🔁 Serial Communication Protocol
+##  Serial Communication Protocol
 
 The Python application sends the selected reel number to the Arduino through the serial port.
 
@@ -285,7 +285,7 @@ The Arduino receives the number, calculates the required motor movement, and rot
 
 ---
 
-## 🧠 Arduino Logic
+##  Arduino Logic
 
 The Arduino firmware should:
 
@@ -304,7 +304,7 @@ Receive reel number → calculate target angle → move stepper motor → stop a
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```text
 CableCarousel/
@@ -366,7 +366,7 @@ If no image is found, the application automatically generates a clean fallback r
 
 ---
 
-## 📸 Screenshots
+##  Screenshots
 
 Add screenshots of the application here:
 
@@ -386,7 +386,7 @@ Example Markdown:
 
 ---
 
-## 🧪 Testing
+##  Testing
 
 Before using the system with real hardware, test the application without Arduino connected.
 
@@ -406,7 +406,7 @@ Then select a reel and check whether the reel number is sent correctly.
 
 ---
 
-## ⚠️ Troubleshooting
+##  Troubleshooting
 
 ### Arduino is not connected
 
@@ -448,7 +448,7 @@ Check:
 
 ---
 
-## 🧩 Possible Improvements
+##  Possible Improvements
 
 Future versions may include:
 
@@ -468,7 +468,7 @@ Future versions may include:
 
 ---
 
-## 🎓 Educational Value
+## Educational Value
 
 This project demonstrates several important engineering and programming concepts:
 
@@ -486,7 +486,7 @@ This project demonstrates several important engineering and programming concepts
 
 ---
 
-## 🏭 Use Cases
+##  Use Cases
 
 CableCarousel can be adapted for:
 
@@ -503,7 +503,7 @@ CableCarousel can be adapted for:
 
 ---
 
-## 📄 requirements.txt
+##  requirements.txt
 
 Example `requirements.txt`:
 
@@ -515,7 +515,7 @@ pyserial
 
 ---
 
-## 📜 License
+##  License
 
 This project is released under the **MIT License**.
 
@@ -523,7 +523,7 @@ You are free to use, modify, and distribute this project according to the terms 
 
 ---
 
-## 👤 Author
+##  Author
 
 **Amir Mobasheraghdam**
 University of Isfahan
@@ -531,15 +531,15 @@ Iran
 
 ---
 
-## 🏷️ Hashtags
+##  Hashtags
 
 `#CableCarousel` `#Python` `#CustomTkinter` `#Arduino` `#StepperMotor` `#IndustrialAutomation` `#WarehouseManagement` `#GUI` `#OpenSource` `#UniversityOfIsfahan` `#AmirMobasheraghdam` `#HumanMachineInterface` `#HMI` `#Automation` `#IoT` `#EmbeddedSystems` `#CableReel` `#SpoolSelector` `#LogisticsTech` `#SmartWarehouse`
 
 ---
 
-## ❤️ Acknowledgement
+##  Acknowledgement
 
 Made with passion for automation, engineering, and practical software-hardware integration.
 
 **Made with ❤️ by Amir Mobasheraghdam**
-University of Isfahan, Iran
+University of Isfahan, Iran 2018
