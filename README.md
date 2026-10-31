@@ -59,3 +59,7 @@ Python **3.12** was used for validation. Tk and an X/desktop display are needed 
 No physical testing, new hardware photographs or measured electrical/optical
 performance is claimed. Retain the author attribution and existing license/source
 notices when reusing the project.
+
+## License
+
+This project is released under the **MIT License**. You are free to use, modify, and distribute this project according to the terms of the MIT License.
