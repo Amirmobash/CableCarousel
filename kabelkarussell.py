@@ -571,13 +571,17 @@ class KabelKarussellApp(ctk.CTk):
         return ctk_image
 
     def load_image_file(self, farbe: str) -> Optional[Image.Image]:
-        for filename in IMAGE_NAMES.get(farbe, (f"{farbe}.png",)):
-            path = self.image_dir / filename
-            if path.exists():
-                try:
-                    return Image.open(path).convert("RGBA").resize((160, 160))
-                except Exception:
-                    return None
+        # Prefer user-supplied recolored images, then the assets shipped beside
+        # this script. Resolve both relative to the script, not the shell's cwd.
+        for directory in (self.image_dir, Path(__file__).resolve().parent):
+            for filename in IMAGE_NAMES.get(farbe, (f"{farbe}.png",)):
+                path = directory / filename
+                if path.is_file():
+                    try:
+                        with Image.open(path) as image:
+                            return image.convert("RGBA").resize((160, 160))
+                    except (OSError, ValueError):
+                        continue
         return None
 
     def create_fallback_image(self, farbe: str) -> Image.Image:
