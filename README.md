@@ -1,5 +1,11 @@
 # CableCarousel — Python GUI and Arduino reel selector
 
+
+<p align="center"><img src="docs/images/cable-carousel-ten-reel-arduino-stepper-gui.svg" alt="Ten-position cable carousel selector with Arduino stepper and Python desktop UI" width="960" /></p>
+
+<sub>Conceptual illustration; not a verified hardware photograph or exact CAD export.</sub>
+
+
 A CustomTkinter desktop interface for browsing ten cable reels and sending a reel number over serial to an Arduino stepper controller with an SSD1306 OLED. Author: **Amir Mobasheraghdam**, University of Isfahan.
 
 ## Reproducible build
